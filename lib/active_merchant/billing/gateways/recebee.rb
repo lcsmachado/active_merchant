@@ -109,34 +109,19 @@ module ActiveMerchant #:nodoc:
       end
 
       def create_zoop_customer_id_through_switcher(payment_type, options)
-        byebug
-        # estamos utilizando o credit_card.name para passar os dados para criar
-        # o customer, quando o meio de pagamento é boleto
-        params = JSON.parse(JSON.parse(payment_type.name))
-
-        taxpayer_id = params['cpfCnpj']
-        first_name = params['firstname']
-        last_name = params['lastname']
-        line1 = params['address']['line1']
-        line2 = params['address']['line2']
-        line3 = params['address']['line3']
-        city = params['address']['city']
-        state = params['address']['state']
-        neighborhood = params['address']['neighborhood']
-        postal_code = params['address']['postal_code']
 
         buyer = {
-          taxpayer_id: taxpayer_id,
-          first_name: first_name,
-          last_name: last_name,
+          taxpayer_id: options[:billing_address][:cpf_cnpj],
+          first_name: options[:billing_address][:first_name],
+          last_name: options[:billing_address][:last_name],
           address: {
-            line1: line1,
-            line2: line2,
-            line3: line3,
-            neighborhood: neighborhood,
-            city: city,
-            state: state,
-            postal_code: postal_code,
+            line1: options[:billing_address][:address1],
+            line2: options[:billing_address][:number],
+            line3: options[:billing_address][:address2],
+            neighborhood: options[:billing_address][:neighborhood],
+            city: options[:billing_address][:city],
+            state: options[:billing_address][:state],
+            postal_code: options[:billing_address][:zip],
             country_code: 'BR'
           }
         }
