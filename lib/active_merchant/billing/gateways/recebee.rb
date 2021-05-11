@@ -109,6 +109,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def create_zoop_customer_id_through_switcher(payment_type, options)
+        byebug
         # estamos utilizando o credit_card.name para passar os dados para criar
         # o customer, quando o meio de pagamento é boleto
         params = JSON.parse(JSON.parse(payment_type.name))
