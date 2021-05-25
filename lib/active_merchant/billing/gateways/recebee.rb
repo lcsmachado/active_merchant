@@ -23,7 +23,7 @@ module ActiveMerchant #:nodoc:
 
       def purchase(amount, payment_type, options = {})
         post = {}
-
+        byebug
         add_payment_type(post, payment_type)
         add_metadata(post)
         if post[:payment_type] == 'boleto'
