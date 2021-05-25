@@ -40,18 +40,18 @@ module ActiveMerchant #:nodoc:
         commit(:post, "v1/customers/#{@switcher_customer_id}/transactions?#{post_data(post)}", {})
       end
 
-      def authorize(amount, payment_type, options={})
+      def authorize(amount, payment, options={})
         post = {}
         byebug
-        add_payment_type(post, payment_type)
+        add_payment_type(post, payment)
         add_metadata(post)
         if post[:payment_type] == 'boleto'
-          zoop_customer_id = create_zoop_customer_id_through_switcher(payment_type, options)
+          zoop_customer_id = create_zoop_customer_id_through_switcher(payment, options)
           add_customer(post, zoop_customer_id)
           add_amount_to_boleto(post, amount)
           add_expiration_date(post)
         else
-          add_credit_card(post, payment_type)
+          add_credit_card(post, payment)
           add_amount_to_credit_card(post, amount)
           add_installments(post, options) if options[:number_installments]
         end
