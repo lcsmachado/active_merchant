@@ -114,6 +114,7 @@ module ActiveMerchant #:nodoc:
         credit_card = payment_type
         if credit_card.number == '5534238414271981'
           post[:payment_type] = 'boleto'
+          post[:capture] = false
         else
           post[:payment_type] = 'credit'
         end
