@@ -40,7 +40,7 @@ module ActiveMerchant #:nodoc:
         commit(:post, "v1/customers/#{@switcher_customer_id}/transactions?#{post_data(post)}", {})
       end
 
-      def authorize(amount, payment, options={})
+      def authorize(amount, payment_type, options={})
         post = {}
         byebug
         add_payment_type(post, payment_type)
