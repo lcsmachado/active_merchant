@@ -62,7 +62,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def capture(amount, authorization, options={})
-        puts "Capturado"
+        commit(:post, "v1/customers/#{@switcher_customer_id}/transactions/#{authorization}/capture", {})
       end
 
       def refund(amount, authorization, options={})
