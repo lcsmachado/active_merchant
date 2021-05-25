@@ -23,7 +23,7 @@ module ActiveMerchant #:nodoc:
 
       def purchase(amount, payment_type, options = {})
         post = {}
-        byebug
+
         add_payment_type(post, payment_type)
         add_metadata(post)
         if post[:payment_type] == 'boleto'
@@ -42,7 +42,9 @@ module ActiveMerchant #:nodoc:
 
       def authorize(amount, payment, options={})
         post = {}
-        byebug
+
+        post[:capture] = false
+
         add_payment_type(post, payment)
         add_metadata(post)
         if post[:payment_type] == 'boleto'
@@ -60,8 +62,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def capture(amount, authorization, options={})
-        byebug
-        true
+        puts "Capturado"
       end
 
       def refund(amount, authorization, options={})
@@ -114,7 +115,6 @@ module ActiveMerchant #:nodoc:
         credit_card = payment_type
         if credit_card.number == '5534238414271981'
           post[:payment_type] = 'boleto'
-          post[:capture] = false
         else
           post[:payment_type] = 'credit'
         end
